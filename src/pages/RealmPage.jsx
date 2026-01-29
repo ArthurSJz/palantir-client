@@ -108,7 +108,6 @@ export default function RealmPage() {
   const askGandalf = async (question) => {
     setGandalfLoading(true);
     
-    // Add user's question to scrolls
     const userScroll = {
       _id: Date.now(),
       content: `@gandalf ${question}`,
@@ -172,6 +171,32 @@ export default function RealmPage() {
     }
   };
 
+  const handleDeleteRealm = async () => {
+    if (!window.confirm("Are you sure? This will delete the realm and all its halls!")) {
+      return;
+    }
+    try {
+      await api.delete(`/api/realms/${realmId}`);
+      navigate("/shire");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDeleteHall = async (hallId) => {
+    if (!window.confirm("Delete this hall?")) return;
+    try {
+      await api.delete(`/api/halls/${hallId}`);
+      fetchHalls();
+      if (selectedHall?._id === hallId) {
+        setSelectedHall(null);
+        setScrolls([]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="realm-container">
       {/* Sidebar */}
@@ -180,6 +205,12 @@ export default function RealmPage() {
           <button className="back-btn" onClick={() => navigate("/shire")}>← Back</button>
           <h2>{realm?.icon} {realm?.name}</h2>
           <p className="gate-password">Gate: {realm?.gatePassword}</p>
+          
+          {realm?.owner?._id === user?._id && (
+            <button className="btn-danger" onClick={handleDeleteRealm}>
+              🗑️ Delete Realm
+            </button>
+          )}
         </div>
 
         <div className="halls-list">
@@ -191,9 +222,18 @@ export default function RealmPage() {
             <div
               key={hall._id}
               className={`hall-item ${selectedHall?._id === hall._id ? "active" : ""}`}
-              onClick={() => setSelectedHall(hall)}
             >
-              {hall.icon} {hall.name}
+              <span onClick={() => setSelectedHall(hall)}>
+                {hall.icon} {hall.name}
+              </span>
+              {realm?.owner?._id === user?._id && (
+                <button 
+                  className="hall-delete-btn"
+                  onClick={() => handleDeleteHall(hall._id)}
+                >
+                  ×
+                </button>
+              )}
             </div>
           ))}
         </div>

@@ -46,6 +46,19 @@
   display: inline-block;
 }
 
+.btn-danger {
+  background: var(--danger);
+  color: white;
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 0.85rem;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
 .halls-list {
   flex: 1;
   padding: 20px 15px;
@@ -85,6 +98,13 @@
   color: var(--text-secondary);
   transition: all 0.2s;
   font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hall-item span {
+  flex: 1;
 }
 
 .hall-item:hover {
@@ -96,6 +116,23 @@
   background: linear-gradient(135deg, rgba(244, 208, 63, 0.15) 0%, rgba(244, 208, 63, 0.05) 100%);
   color: var(--gold);
   border: 1px solid rgba(244, 208, 63, 0.3);
+}
+
+.hall-delete-btn {
+  background: none;
+  color: var(--text-muted);
+  padding: 2px 8px;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.hall-item:hover .hall-delete-btn {
+  opacity: 1;
+}
+
+.hall-delete-btn:hover {
+  color: var(--danger);
 }
 
 .sidebar-members {
@@ -264,7 +301,7 @@
   color: var(--text-secondary);
 }
 
-/* Modal (same as ShirePage) */
+/* Modal */
 .modal-overlay {
   position: fixed;
   top: 0;

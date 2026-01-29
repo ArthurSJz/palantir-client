@@ -136,3 +136,12 @@ input::placeholder {
   font-size: 1.2rem;
   color: var(--gold);
 }
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
