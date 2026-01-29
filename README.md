@@ -100,9 +100,6 @@ palantir-client/
 
 **Arthur SJ** - [GitHub](https://github.com/ArthurSJz)
 
-## 📄 License
-
-MIT License
 
 ---
 
