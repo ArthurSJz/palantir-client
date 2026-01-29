@@ -1,5 +1,6 @@
-css.shire-container {
+.shire-container {
   min-height: 100vh;
+  background: radial-gradient(ellipse at top, #1a1a2e 0%, #0D1117 50%);
 }
 
 .shire-header {
@@ -7,81 +8,106 @@ css.shire-container {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: var(--bg-secondary);
+  background: rgba(22, 27, 34, 0.8);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .shire-header h1 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+}
+
+.user-info span {
+  color: var(--text-secondary);
 }
 
 .shire-main {
-  padding: 40px;
+  padding: 50px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .shire-main h2 {
-  margin-bottom: 8px;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
 .subtitle {
   color: var(--text-secondary);
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  font-size: 1.05rem;
 }
 
 .realms-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
 }
 
 .realm-card {
-  background-color: var(--bg-card);
+  background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 30px;
+  border-radius: 16px;
+  padding: 35px 25px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 .realm-card:hover {
   border-color: var(--gold);
-  transform: translateY(-2px);
-}
-
-.create-realm {
-  border-style: dashed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  color: var(--text-secondary);
-}
-
-.create-realm .icon {
-  font-size: 2rem;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(244, 208, 63, 0.15);
 }
 
 .realm-icon {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 3rem;
+  margin-bottom: 5px;
 }
 
 .realm-name {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-family: 'Cinzel', serif;
 }
 
 .realm-members {
-  color: var(--text-secondary);
+  color: var(--text-muted);
   font-size: 0.85rem;
-  margin-top: 5px;
+}
+
+.create-realm {
+  border-style: dashed;
+  border-color: var(--border-light);
+  color: var(--text-secondary);
+  background: transparent;
+}
+
+.create-realm:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(244, 208, 63, 0.05);
+}
+
+.create-realm .icon {
+  font-size: 2.5rem;
 }
 
 /* Modal */
@@ -91,7 +117,8 @@ css.shire-container {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,36 +126,39 @@ css.shire-container {
 }
 
 .modal {
-  background: var(--bg-secondary);
-  padding: 30px;
-  border-radius: 12px;
+  background: linear-gradient(145deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  padding: 35px;
+  border-radius: 16px;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   border: 1px solid var(--border);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
 }
 
 .modal h3 {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
 }
 
 .modal-subtitle {
   color: var(--text-secondary);
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-style: italic;
 }
 
 .modal form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 }
 
 .modal-buttons {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   margin-top: 10px;
 }
 
 .modal-buttons button {
   flex: 1;
+  padding: 14px;
 }

@@ -18,6 +18,7 @@ export default function RealmPage() {
   const [newMessage, setNewMessage] = useState("");
   const [showCreateHall, setShowCreateHall] = useState(false);
   const [newHallName, setNewHallName] = useState("");
+  const [gandalfLoading, setGandalfLoading] = useState(false);
 
   useEffect(() => {
     fetchRealm();
@@ -85,6 +86,12 @@ export default function RealmPage() {
     e.preventDefault();
     if (!newMessage.trim() || !selectedHall) return;
 
+    // Check if message is for Gandalf
+    if (newMessage.toLowerCase().startsWith("@gandalf")) {
+      await askGandalf(newMessage.replace(/@gandalf/i, "").trim());
+      return;
+    }
+
     try {
       const res = await api.post("/api/scrolls", {
         content: newMessage,
@@ -95,6 +102,61 @@ export default function RealmPage() {
       setNewMessage("");
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const askGandalf = async (question) => {
+    setGandalfLoading(true);
+    
+    // Add user's question to scrolls
+    const userScroll = {
+      _id: Date.now(),
+      content: `@gandalf ${question}`,
+      author: { _id: user._id, name: user.name },
+      createdAt: new Date(),
+    };
+    setScrolls((prev) => [...prev, userScroll]);
+    setNewMessage("");
+
+    try {
+      const res = await api.post("/api/gandalf/ask", {
+        message: question,
+        hallId: selectedHall._id,
+      });
+
+      const gandalfScroll = {
+        _id: Date.now() + 1,
+        content: res.data.response,
+        author: { _id: "gandalf", name: "🧙 Gandalf" },
+        isGandalfResponse: true,
+        createdAt: new Date(),
+      };
+      setScrolls((prev) => [...prev, gandalfScroll]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setGandalfLoading(false);
+    }
+  };
+
+  const handleSummarize = async () => {
+    if (!selectedHall) return;
+    setGandalfLoading(true);
+
+    try {
+      const res = await api.post(`/api/gandalf/summarize/${selectedHall._id}`);
+      const summaryScroll = {
+        _id: Date.now(),
+        content: res.data.summary,
+        author: { _id: "gandalf", name: "🧙 Gandalf" },
+        isGandalfResponse: true,
+        createdAt: new Date(),
+      };
+      setScrolls((prev) => [...prev, summaryScroll]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setGandalfLoading(false);
     }
   };
 
@@ -151,11 +213,21 @@ export default function RealmPage() {
       <main className="realm-main">
         <header className="chat-header">
           <h3>{selectedHall?.icon} {selectedHall?.name}</h3>
+          <button 
+            className="btn-gandalf" 
+            onClick={handleSummarize}
+            disabled={gandalfLoading}
+          >
+            🧙 {gandalfLoading ? "Thinking..." : "Summarize"}
+          </button>
         </header>
 
         <div className="scrolls-container">
           {scrolls.map((scroll) => (
-            <div key={scroll._id} className={`scroll-item ${scroll.author?._id === user?._id ? "own" : ""}`}>
+            <div 
+              key={scroll._id} 
+              className={`scroll-item ${scroll.author?._id === user?._id ? "own" : ""} ${scroll.isGandalfResponse ? "gandalf" : ""}`}
+            >
               <div className="scroll-author">{scroll.author?.name}</div>
               <div className="scroll-content">{scroll.content}</div>
               <div className="scroll-time">
@@ -163,13 +235,19 @@ export default function RealmPage() {
               </div>
             </div>
           ))}
+          {gandalfLoading && (
+            <div className="scroll-item gandalf">
+              <div className="scroll-author">🧙 Gandalf</div>
+              <div className="scroll-content typing">Consulting the ancient texts...</div>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
 
         <form className="message-form" onSubmit={handleSendMessage}>
           <input
             type="text"
-            placeholder={`Send a scroll to ${selectedHall?.name || "..."}...`}
+            placeholder="Send a scroll... (type @gandalf to ask the wizard)"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
           />
