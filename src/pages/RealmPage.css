@@ -1,0 +1,191 @@
+.realm-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.realm-sidebar {
+  width: 260px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-header h2 {
+  font-size: 1.2rem;
+  margin: 10px 0 5px;
+}
+
+.back-btn {
+  background: none;
+  color: var(--text-secondary);
+  padding: 5px 0;
+  font-size: 0.9rem;
+}
+
+.back-btn:hover {
+  color: var(--gold);
+}
+
+.gate-password {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+.halls-list {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.halls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.halls-header button {
+  background: none;
+  color: var(--text-secondary);
+  padding: 2px 8px;
+}
+
+.halls-header button:hover {
+  color: var(--gold);
+}
+
+.hall-item {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+}
+
+.hall-item:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.hall-item.active {
+  background: var(--bg-card);
+  color: var(--gold);
+}
+
+.sidebar-members {
+  padding: 15px;
+  border-top: 1px solid var(--border);
+}
+
+.sidebar-members h4 {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 0.9rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--elvish);
+  border-radius: 50%;
+}
+
+/* Main Chat */
+.realm-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.chat-header h3 {
+  font-size: 1.1rem;
+}
+
+.scrolls-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.scroll-item {
+  margin-bottom: 16px;
+  max-width: 70%;
+}
+
+.scroll-item.own {
+  margin-left: auto;
+}
+
+.scroll-author {
+  font-size: 0.85rem;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.scroll-item.own .scroll-author {
+  text-align: right;
+}
+
+.scroll-content {
+  background: var(--bg-card);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.scroll-item.own .scroll-content {
+  background: var(--gold-dark);
+  border-color: var(--gold);
+}
+
+.scroll-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.scroll-item.own .scroll-time {
+  text-align: right;
+}
+
+/* Message Form */
+.message-form {
+  padding: 15px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+}
+
+.message-form input {
+  flex: 1;
+}
+
+.message-form button {
+  padding: 10px 25px;
+}
